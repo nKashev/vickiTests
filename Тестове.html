@@ -112,6 +112,7 @@
          <!-- <button onclick="loadQuiz(techQuiz, 'ТП')">ТП</button> -->
          <!-- <button onclick="loadQuiz(compScienceQuiz, 'Компютърно моделиране')">Компютърно моделиране</button> -->
          <button onclick="toggleResults()">Покажи/Скрии Резултатите</button>
+         <!-- <button onclick="clearResults()">Изчисти Резултатите</button> -->
       </div>
       <div id="quizContainer" class="quiz-container"></div>
       <div id="resultsContainer" class="results-container"></div>
@@ -150,7 +151,7 @@
          {
          "question": "Какво е следващото число в редицата: 7, 14, 21, 28, ...?",
          "answers": ["32", "35", "36", "42"],
-         "correctAnswer": 3
+         "correctAnswer": 1
          },
          {
          "question": "Ако имаш 36 ябълки и ги разделиш на 6 кутии, колко ябълки ще има всяка кутия?",
@@ -165,7 +166,7 @@
          {
          "question": "Колко е 72 ÷ 8?",
          "answers": ["7", "8", "9", "10"],
-         "correctAnswer": 1
+         "correctAnswer": 2
          },
          {
          "question": "Какво е следващото число в редицата: 12, 24, 36, 48, ...?",
@@ -178,24 +179,24 @@
          "correctAnswer": 1
          },
          {
-         "question": "Колко е 18 × 5?",
-         "answers": ["85", "90", "95", "100"],
+         "question": "Колко е 21 ÷ 3?",
+         "answers": ["12", "7", "3", "9"],
          "correctAnswer": 1
          },
          {
          "question": "Колко е 56 ÷ 7?",
          "answers": ["7", "8", "9", "10"],
-         "correctAnswer": 0
+         "correctAnswer": 1
          },
          {
          "question": "Какво е следващото число в редицата: 6, 12, 18, 24, ...?",
          "answers": ["28", "30", "32", "36"],
-         "correctAnswer": 3
+         "correctAnswer": 1
          },
          {
          "question": "Ако имаш 35 цигулки и ги разделиш на 5 ученика, колко цигулки ще получи всеки ученик?",
          "answers": ["5", "6", "7", "8"],
-         "correctAnswer": 0
+         "correctAnswer": 2
          },
          {
          "question": "Каква е стойността на 4 × 6?",
@@ -205,12 +206,12 @@
          {
          "question": "Колко е 63 ÷ 9?",
          "answers": ["6", "7", "8", "9"],
-         "correctAnswer": 0
+         "correctAnswer": 1
          },
          {
          "question": "Какво е следващото число в редицата: 8, 16, 24, 32, ...?",
          "answers": ["36", "40", "42", "48"],
-         "correctAnswer": 3
+         "correctAnswer": 1
          },
          {
          "question": "Колко е стойността на 3 на квадрат?",
@@ -406,7 +407,7 @@
          function checkAnswer() {
             const selectedAnswer = document.querySelector('input[name="answer"]:checked');
             if (!selectedAnswer) {
-               alert("Please select an answer.");
+               alert("Моля избери отговор!");
                return;
             }
          
@@ -502,6 +503,13 @@
                resultsContainer.appendChild(resultElement);
             });
          }
+         
+         function clearResults() {
+         localStorage.removeItem('quizResults');
+         // After removing the item, you may want to clear the results container on the page as well
+         const resultsContainer = document.getElementById('resultsContainer');
+         resultsContainer.innerHTML = '';
+         }      
       </script>
    </body>
 </html>

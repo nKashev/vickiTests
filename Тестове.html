@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         /* style.css */
+         body {
+         padding: 0;
+         margin: 0;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         background-color: #f0f0f0;
+         font-family: Arial, sans-serif;
+         }
+         .buttons-container {
+         margin-bottom: 20px;
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         gap: 10px; /* Ensure there is space between buttons */
+         }
+         button {
+         background-color: #234465;
+         color: #FFAB00;
+         font-weight: bold;
+         text-transform: uppercase;
+         font-size: 16px; /* Slightly reduced font size for better fit */
+         padding: 10px 15px; /* Adjust padding for better fit */
+         border: none;
+         border-radius: 15px;
+         cursor: pointer;
+         margin: 5px;
+         flex: 1 1 auto;
+         max-width: 180px; /* Reduced max-width */
+         min-width: 80px; /* Reduced min-width */
+         box-sizing: border-box;
+         text-align: center;
+         }
+         button:hover {
+         background-color: #1a2e4c;
+         }
+         button:disabled {
+         background-color: #ccc;
+         color: #666;
+         cursor: not-allowed;
+         opacity: 0.6;
+         }
+         .quiz-container {
+         text-align: center;
+         max-width: 90%;
+         width: 600px;
+         padding: 10px;
+         box-sizing: border-box;
+         }
+         .results-container {
+         margin-top: 20px;
+         text-align: center;
+         display: none; /* Hide the results initially */
+         }
+         .answers-container {
+         text-align: left;
+         display: flex;
+         flex-direction: column;
+         align-items: flex-start;
+         margin: 0 auto;
+         max-width: 90%;
+         width: 300px;
+         }
+         .answer {
+         font-size: 14px;
+         margin: 5px 0;
+         display: flex;
+         align-items: center;
+         }
+         .answer input {
+         margin-right: 10px;
+         }
+         .feedback {
+         margin-top: 10px;
+         font-weight: bold;
+         }
+         @media (max-width: 600px) {
+         button {
+         font-size: 14px; /* Adjusted for smaller screens */
+         padding: 8px 12px; /* Adjusted for smaller screens */
+         max-width: 150px; /* Adjusted for smaller screens */
+         min-width: 60px; /* Adjusted for smaller screens */
+         }
+         }
+         @media (max-width: 400px) {
+         button {
+         font-size: 12px; /* Further adjusted for very small screens */
+         padding: 6px 10px; /* Further adjusted for very small screens */
+         max-width: 120px; /* Further adjusted for very small screens */
+         min-width: 50px; /* Further adjusted for very small screens */
+         }
+         }
+      </style>
+      <title>Тестовете на Вики</title>
+   </head>
+   <body>
+      <div class="buttons-container">
+         <button onclick="loadQuiz(mathQuiz, 'Математика')">Математика</button>
+         <!-- <button onclick="loadQuiz(scienceQuiz, 'Човек и природа')">Човек и природа</button> -->
+         <!-- <button onclick="loadQuiz(historyQuiz, 'Човек и общество')">Човек и общество</button> -->
+         <button onclick="loadQuiz(englishQuiz, 'Английски')">Английски</button>
+         <!-- <button onclick="loadQuiz(literatureQuiz, 'БЕЛ')">БЕЛ</button> -->
+         <!-- <button onclick="loadQuiz(techQuiz, 'ТП')">ТП</button> -->
+         <!-- <button onclick="loadQuiz(compScienceQuiz, 'Компютърно моделиране')">Компютърно моделиране</button> -->
+         <button onclick="toggleResults()">Покажи/Скрии Резултатите</button>
+      </div>
+      <div id="quizContainer" class="quiz-container"></div>
+      <div id="resultsContainer" class="results-container"></div>
+      <script type="text/javascript">
+         const mathQuiz = [
+         {
+         "question": "Колко е 4 × 7?",
+         "answers": ["24", "28", "32", "36"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Колко е 81 ÷ 9?",
+         "answers": ["7", "8", "9", "10"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "Каква е стойността на 5 на квадрат?",
+         "answers": ["20", "25", "30", "35"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Колко е 14 - 7?",
+         "answers": ["5", "6", "7", "8"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "Колко е 6 × 8?",
+         "answers": ["42", "48", "54", "60"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Колко е 80 ÷ 10?",
+         "answers": ["6", "7", "8", "9"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "Какво е следващото число в редицата: 7, 14, 21, 28, ...?",
+         "answers": ["32", "35", "36", "42"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "Ако имаш 36 ябълки и ги разделиш на 6 кутии, колко ябълки ще има всяка кутия?",
+         "answers": ["4", "5", "6", "7"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "Каква е стойността на 9 × 9?",
+         "answers": ["71", "81", "91", "101"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Колко е 72 ÷ 8?",
+         "answers": ["7", "8", "9", "10"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Какво е следващото число в редицата: 12, 24, 36, 48, ...?",
+         "answers": ["50", "52", "54", "60"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "Колко е стойността на 7 на квадрат?",
+         "answers": ["45", "49", "53", "57"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Колко е 18 × 5?",
+         "answers": ["85", "90", "95", "100"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Колко е 56 ÷ 7?",
+         "answers": ["7", "8", "9", "10"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "Какво е следващото число в редицата: 6, 12, 18, 24, ...?",
+         "answers": ["28", "30", "32", "36"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "Ако имаш 35 цигулки и ги разделиш на 5 ученика, колко цигулки ще получи всеки ученик?",
+         "answers": ["5", "6", "7", "8"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "Каква е стойността на 4 × 6?",
+         "answers": ["20", "24", "28", "32"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "Колко е 63 ÷ 9?",
+         "answers": ["6", "7", "8", "9"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "Какво е следващото число в редицата: 8, 16, 24, 32, ...?",
+         "answers": ["36", "40", "42", "48"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "Колко е стойността на 3 на квадрат?",
+         "answers": ["6", "9", "12", "15"],
+         "correctAnswer": 1
+         }
+         ];
+         
+         <!-- const scienceQuiz = [ -->
+            <!-- { -->
+                           <!-- question: "What planet is known as the Red Planet?", -->
+               <!-- answers: ["Earth", "Mars", "Jupiter"], -->
+               <!-- correctAnswer: 1, -->
+            <!-- }, -->
+            <!-- { -->
+               <!-- question: "What is the chemical symbol for water?", -->
+               <!-- answers: ["O2", "H2O", "CO2"], -->
+               <!-- correctAnswer: 1, -->
+            <!-- } -->
+         <!-- ]; -->
+         
+         const englishQuiz = [
+         {
+         "question": "What is the opposite of 'hot'?",
+         "answers": ["Cold", "Warm", "Cool", "Freezing"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "What is the capital city of France?",
+         "answers": ["Berlin", "Madrid", "London", "Paris"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "Which animal is known for its long neck?",
+         "answers": ["Elephant", "Giraffe", "Lion", "Tiger"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "How many sides does a triangle have?",
+         "answers": ["3", "4", "5", "6"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "What do you use to write with?",
+         "answers": ["Pencil", "Eraser", "Ruler", "Scissors"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "Which season comes after summer?",
+         "answers": ["Spring", "Autumn", "Winter"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "What is the color of the sun?",
+         "answers": ["Blue", "Yellow", "Red", "Green"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "What is the biggest animal in the world?",
+         "answers": ["Whale", "Giraffe", "Lion", "Tiger"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "What do you call a baby cat?",
+         "answers": ["Cub", "Puppy", "Kitten", "Fawn"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "How many continents are there in the world?",
+         "answers": ["5", "6", "7", "8"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "Which of the following is a fruit?",
+         "answers": ["Potato", "Tomato", "Carrot", "Apple"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "What is the name of the largest ocean on Earth?",
+         "answers": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "What is the primary color of grass?",
+         "answers": ["Red", "Yellow", "Green", "Blue"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "How many legs does a spider have?",
+         "answers": ["4", "6", "8", "10"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "What do you call the study of Earth planet?",
+         "answers": ["Geography", "Biology", "Astronomy", "Chemistry"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "Which of the following is a mammal?",
+         "answers": ["Fish", "Bird", "Snake", "Dog"],
+         "correctAnswer": 3
+         },
+         {
+         "question": "What is the name of the toy that you throw and catch?",
+         "answers": ["Ball", "Doll", "Car", "Puzzle"],
+         "correctAnswer": 0
+         },
+         {
+         "question": "What do you use to measure time?",
+         "answers": ["Thermometer", "Ruler", "Clock", "Compass"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "What is the currency used in Bulgaria?",
+         "answers": ["Dollar", "Euro", "Lev", "Pound"],
+         "correctAnswer": 2
+         },
+         {
+         "question": "Which of the following is a mode of transportation?",
+         "answers": ["Book", "Bicycle", "Table", "Chair"],
+         "correctAnswer": 1
+         },
+         {
+         "question": "What do you use to cut paper?",
+         "answers": ["Pencil", "Eraser", "Ruler", "Scissors"],
+         "correctAnswer": 3
+         }
+         ];
+         
+         
+         const quizQuestions = [];
+         let currentQuestionIndex = 0;
+         let score = 0;
+         let currentQuizName = '';
+         
+         function loadQuiz(quiz, quizName) {
+            quizQuestions.length = 0;
+            quizQuestions.push(...quiz);
+            currentQuizName = quizName;
+            document.querySelector('.buttons-container').style.display = 'none';
+            startQuiz();
+         }
+         
+         function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+         
+            const quizContainer = document.getElementById("quizContainer");
+            const resultsContainer = document.getElementById("resultsContainer");
+         
+            quizContainer.innerHTML = ''; // Clear any previous content
+            resultsContainer.innerHTML = ''; // Clear any previous results
+         
+            displayQuestion();
+         }
+         
+         function displayQuestion() {
+            const quizContainer = document.getElementById("quizContainer");
+            quizContainer.innerHTML = ''; // Clear previous question
+         
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+         
+            const questionText = document.createElement("h2");
+            questionText.textContent = currentQuestion.question;
+            quizContainer.appendChild(questionText);
+         
+            const answersContainer = document.createElement("div");
+            answersContainer.className = 'answers-container';
+         
+            currentQuestion.answers.forEach((answer, index) => {
+               const answerDiv = document.createElement("div");
+               answerDiv.className = 'answer';
+               const answerRadio = document.createElement("input");
+               answerRadio.type = "radio";
+               answerRadio.name = "answer";
+               answerRadio.value = index;
+               const answerLabel = document.createElement("label");
+               answerLabel.textContent = answer;
+         
+               answerDiv.appendChild(answerRadio);
+               answerDiv.appendChild(answerLabel);
+               answersContainer.appendChild(answerDiv);
+            });
+         
+            const submitButton = document.createElement("button");
+            submitButton.textContent = "Избери";
+            submitButton.addEventListener("click", checkAnswer);
+            answersContainer.appendChild(submitButton);
+         
+            quizContainer.appendChild(answersContainer);
+         }
+         
+         function checkAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+               alert("Please select an answer.");
+               return;
+            }
+         
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            const isCorrect = parseInt(selectedAnswer.value) === currentQuestion.correctAnswer;
+         
+            const feedback = document.createElement("div");
+            feedback.className = 'feedback';
+         
+            if (isCorrect) {
+               score++;
+               feedback.textContent = "Вярно!";
+               feedback.style.color = "green";
+            } else {
+               feedback.textContent = "Грешно.";
+               feedback.style.color = "red";
+            }
+         
+            const quizContainer = document.getElementById("quizContainer");
+            const answersContainer = document.querySelector('.answers-container');
+            answersContainer.appendChild(feedback);
+         
+            // Highlight correct and incorrect answers
+            const answerDivs = document.querySelectorAll('.answer');
+            answerDivs.forEach((answerDiv, index) => {
+               if (index === currentQuestion.correctAnswer) {
+                  answerDiv.style.color = "green";
+               } else {
+                  if (parseInt(selectedAnswer.value) === index) {
+                     answerDiv.style.color = "red";
+                  }
+               }
+            });
+         
+            // Move to the next question after a short delay
+            setTimeout(() => {
+               currentQuestionIndex++;
+               if (currentQuestionIndex < quizQuestions.length) {
+                  displayQuestion();
+               } else {
+                  displayResult();
+               }
+            }, 2000);
+         }
+         
+         function displayResult() {
+            const quizContainer = document.getElementById("quizContainer");
+            quizContainer.innerHTML = ''; // Clear previous content
+         
+            const resultText = document.createElement("h2");
+            resultText.textContent = `Крайният ти резултат е: ${score}/${quizQuestions.length}`;
+            quizContainer.appendChild(resultText);
+         
+            saveResult();
+         
+            const startButton = document.createElement("button");
+            startButton.textContent = "Обратно към тестовете";
+            startButton.addEventListener("click", () => {
+               document.querySelector('.buttons-container').style.display = 'flex';
+               quizContainer.innerHTML = ''; // Clear result
+            });
+            quizContainer.appendChild(startButton);
+         }
+         
+         function saveResult() {
+            const results = JSON.parse(localStorage.getItem('quizResults')) || [];
+            const newResult = {
+               quizName: currentQuizName,
+               date: new Date().toLocaleDateString(),
+               score: score,
+               totalQuestions: quizQuestions.length
+            };
+            results.push(newResult);
+            localStorage.setItem('quizResults', JSON.stringify(results));
+         }
+         
+         function toggleResults() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.style.display = resultsContainer.style.display === 'none' ? 'block' : 'none';
+            if (resultsContainer.style.display === 'block') {
+               showResults();
+            }
+         }
+         
+         function showResults() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = ''; // Clear previous results
+            const results = JSON.parse(localStorage.getItem('quizResults')) || [];
+         
+            results.forEach(result => {
+               const resultElement = document.createElement('div');
+               resultElement.textContent = `Тест: ${result.quizName}, Дата: ${result.date}, Резултат: ${result.score}/${result.totalQuestions}`;
+               resultsContainer.appendChild(resultElement);
+            });
+         }
+      </script>
+   </body>
+</html>

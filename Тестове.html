@@ -465,7 +465,7 @@
             const currentQuestion = quizQuestions[currentQuestionIndex];
          
             const questionText = document.createElement("h2");
-            questionText.textContent = currentQuestion.question;
+            questionText.textContent = `Въпрос ${currentQuestionIndex + 1}/${quizQuestions.length}: ${currentQuestion.question}`;
             quizContainer.appendChild(questionText);
          
             const answersContainer = document.createElement("div");

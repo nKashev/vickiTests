@@ -8,6 +8,18 @@
     <link rel="icon" href="https://bookings.reformeracademy.pro/wp-content/uploads/2025/11/sq_logo.ico" type="image/x-icon">
     <title>SQ Pilates Reformer Studio</title>
     <style>
+        :root {
+            --primary: #ffc5cb;
+            /* --primary: #FFB2E6; */
+            /* --primary: #ffccf5; */
+            /* --primary: #ffbcd9; */
+            /* --primary: #f0afce; */
+            /* --primary: #ffb6c1; */
+            /* --primary: #fadadd; */
+            /* --primary: #ffc0cb; */
+            /* --primary: #e7a1b0; */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -41,7 +53,7 @@
         .logo-text {
             font-size: 20px;
             font-weight: 600;
-            color: #FFB2E6;
+            color: var(--primary);
             letter-spacing: 1px;
             white-space: nowrap;
             flex-shrink: 0;
@@ -54,7 +66,7 @@
         }
 
         nav a {
-            color: #FFB2E6;
+            color: var(--primary);
             text-decoration: none;
             font-size: 16px;
             transition: opacity 0.3s;
@@ -75,7 +87,7 @@
         .menu-toggle span {
             width: 25px;
             height: 2px;
-            background: #FFB2E6;
+            background: var(--primary);
             margin: 4px 0;
             transition: all 0.3s ease;
             border-radius: 3px;
@@ -181,7 +193,7 @@
         .hero {
             text-align: center;
             padding: 60px 20px 40px;
-            background-color: #FFB2E6;
+            background-color: var(--primary);
             background-image:
                 radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 40%),
                 radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
@@ -194,6 +206,8 @@
             overflow: hidden;
         }
 
+        header::after,
+        nav.active::after,
         .hero::after,
         .countdown-item::after {
             content: "";
@@ -435,7 +449,7 @@
         }
 
         .countdown-container {
-            /* background: #FFB2E6; */
+            /* background: var(--primary); */
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
@@ -457,7 +471,7 @@
         }
 
         .countdown-item {
-            background: #FFB2E6;
+            background: var(--primary);
             border-radius: 10px;
             padding: 15px 20px;
             text-align: center;
@@ -479,7 +493,7 @@
         }
 
         .highlight-box {
-            background: #FFB2E6;
+            background: var(--primary);
             color: white;
             padding: 30px;
             border-radius: 15px;
@@ -517,7 +531,7 @@
             background: #1a1a1a;
             padding: 40px;
             border-radius: 8px;
-            border-left: 4px solid #FFB2E6;
+            border-left: 4px solid var(--primary);
             position: relative;
         }
 
@@ -536,7 +550,7 @@
             background: #1a1a1a;
             padding: 40px;
             border-radius: 8px;
-            border-left: 4px solid #FFB2E6;
+            border-left: 4px solid var(--primary);
         }
 
         .schedule-title {
@@ -544,7 +558,7 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 25px;
-            color: #FFB2E6;
+            color: var(--primary);
             font-size: 18px;
             font-weight: 600;
         }
@@ -569,7 +583,7 @@
         }
 
         .day {
-            color: #FFB2E6;
+            color: var(--primary);
             font-weight: 500;
         }
 
@@ -588,7 +602,7 @@
         .section-title {
             text-align: center;
             font-size: 28px;
-            color: #FFB2E6;
+            color: var(--primary);
             margin-bottom: 30px;
             font-weight: 600;
         }
@@ -604,7 +618,7 @@
 
         .reviews-section .section-icon {
             font-size: 28px;
-            color: #FFB2E6;
+            color: var(--primary);
         }
 
         /* Footer */
@@ -627,7 +641,7 @@
         }
 
         .footer-brand {
-            color: #FFB2E6;
+            color: var(--primary);
             font-weight: 600;
         }
 
@@ -653,7 +667,7 @@
         }
 
         .footer-links a:hover {
-            color: #FFB2E6;
+            color: var(--primary);
         }
 
         .footer-social {
@@ -673,15 +687,15 @@
             justify-content: center;
             transition: all 0.3s ease;
             text-decoration: none;
-            color: #FFB2E6;
+            color: var(--primary);
             font-size: 20px;
             border: 2px solid transparent;
         }
 
         .footer-social a:hover {
-            background: #FFB2E6;
+            background: var(--primary);
             color: #000;
-            border-color: #FFB2E6;
+            border-color: var(--primary);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(216, 176, 74, 0.3);
         }
@@ -730,7 +744,7 @@
         }
 
         .modal-close {
-            color: #FFB2E6;
+            color: var(--primary);
             float: right;
             font-size: 35px;
             font-weight: bold;
@@ -743,7 +757,7 @@
         }
 
         .modal h2 {
-            color: #FFB2E6;
+            color: var(--primary);
             margin-bottom: 20px;
         }
 
@@ -754,7 +768,7 @@
         }
 
         .modal h3 {
-            color: #FFB2E6;
+            color: var(--primary);
             margin-top: 25px;
             margin-bottom: 15px;
             font-size: 18px;
@@ -809,7 +823,7 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="logo-text"><a href="#" style="color: #FFB2E6; text-decoration: none;">SQ Pilates Reformer Studio</a></div>
+        <div class="logo-text"><a href="#" style="color: var(--primary); text-decoration: none;">SQ Pilates Reformer Studio</a></div>
         <div class="menu-toggle">
             <span></span>
             <span></span>
